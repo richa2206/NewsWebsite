@@ -1,14 +1,13 @@
 // This is used for validating the sigin form
 function validate(){
+    console.log("3....");
     
-    var 
     var password = $('#password').val();
     var emailVal = $('#email').val();
+    console.log(emailVal);
    
-    if( validateEmail(emailVal) && validatePassword(password)) {
-        return true;
-
-    } else return false;
+    validateEmail(emailVal);
+    validatePassword(password);
 }
 
 // check for password
@@ -16,35 +15,40 @@ function validatePassword(password) {
     
     var error = "";
     if(!isEmpty("Password", password)){
-        return false;
+        // return false;
     }
     var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-    if(password.match(passw)) { 
-        $('#passwordError').hide();
-        return true;
-    } else{ 
-        $('#passwordError').show();
-        var error = 'Wrong password ...!  it should contain 6 to 20 characters which contain '+
-        'at least one numeric digit, one uppercase and one lowercase letter';
-        $('#passwordError').text(error);
-        return false;
+    if(password!=""){
+        
+        if(password.match(passw)) { 
+            // return true;
+        } else{ 
+            $('#loginErr').show();
+            var error = 'Wrong password ...!  it should contain 6 to 20 characters which contain '+
+            'at least one numeric digit, one uppercase and one lowercase letter';
+            $('#loginErr').text(error);
+            // return false;
+        }
     }
 }
 
-// check for email
+// chek for email
 function validateEmail(emailVal){
 
     if(!isEmpty("email", emailVal)){
-        return false;
+        // return false;
     }
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if(emailVal!=""){
+        if (!reg.test(emailVal)) {
+            $('#loginErr').show();
+            $('#loginErr').text("Please provide valid email address");
+            // return false;
+        }
 
-    if (!reg.test(emailVal)) {
-        $('#emailError').show();
-        $('#emailError').text("please provide valid email address");
-        return false;
     }
-    return true;
+    
+    // return true;
 }
 
 // check for empty
@@ -52,12 +56,18 @@ function isEmpty(field, data){
     var error = "";
     if (data === ''|| data === null || data === undefined) {
         error = "You didn't enter "+field+".";
+        change_placeholder_color('.email', 'red');
         if(field=="email"){
-            $('#emailError').text(error);
+            change_placeholder_color('.email', 'red');
+            $('#email').attr("placeholder",error);
         }else if(field=="Password"){
-            $('#passwordError').text(error);
+            console.log("4......!");
+            $('#password').attr("placeholder",error);
         }
-        return false;
     } 
-    return true;
+    // return true;
+}
+
+function change_placeholder_color(target_class, color_choice) {
+    $("body").append("<style>" + target_class + "::placeholder{color:" +  color_choice + "}</style>")
 }
