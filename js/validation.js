@@ -15,7 +15,6 @@ function validatePassword(password) {
     
     var error = "";
     if(!isEmpty("Password", password)){
-        // return false;
     }
     var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     if(password!=""){
@@ -27,7 +26,6 @@ function validatePassword(password) {
             var error = 'Wrong password ...!  it should contain 6 to 20 characters which contain '+
             'at least one numeric digit, one uppercase and one lowercase letter';
             $('#loginErr').text(error);
-            // return false;
         }
     }
 }
@@ -43,12 +41,8 @@ function validateEmail(emailVal){
         if (!reg.test(emailVal)) {
             $('#loginErr').show();
             $('#loginErr').text("Please provide valid email address");
-            // return false;
         }
-
     }
-    
-    // return true;
 }
 
 // check for empty
@@ -65,9 +59,9 @@ function isEmpty(field, data){
             $('#password').attr("placeholder",error);
         }
     } 
-    // return true;
 }
 
+// This is used to set placeholder color
 function change_placeholder_color(target_class, color_choice) {
     $("body").append("<style>" + target_class + "::placeholder{color:" +  color_choice + "}</style>")
 }
